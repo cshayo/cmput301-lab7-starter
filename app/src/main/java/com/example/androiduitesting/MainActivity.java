@@ -2,13 +2,16 @@ package com.example.androiduitesting;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -19,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout nameField;
     ArrayAdapter<String> cityAdapter;
     ArrayList<String> dataList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,19 @@ public class MainActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 cityAdapter.clear();
+            }
+        });
+
+
+
+        cityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String city_name = cityAdapter.getItem(i);
+
+                Intent intent = new Intent(MainActivity.this, ShowActivity.class);
+                intent.putExtra("city name", city_name);
+                startActivity(intent);
             }
         });
     }
